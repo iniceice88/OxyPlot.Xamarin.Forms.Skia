@@ -62,17 +62,12 @@ namespace OxyPlot.XF.Skia.Droid.Effects
             var senderView = sender as View;
             var motionEvent = args.Event;
 
-
             int[] twoIntArray = new int[2];
             senderView.GetLocationOnScreen(twoIntArray);
-
-
+            
             var list = new List<Point>();
             for (var pointerIndex = 0; pointerIndex < motionEvent.PointerCount; pointerIndex++)
             {
-
-                senderView.GetLocationOnScreen(twoIntArray);
-
                 list.Add(new Point(twoIntArray[0] + motionEvent.GetX(pointerIndex),
                     twoIntArray[1] + motionEvent.GetY(pointerIndex)));
             }

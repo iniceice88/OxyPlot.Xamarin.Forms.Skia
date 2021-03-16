@@ -25,12 +25,9 @@ namespace SimpleDemo
             PlotView.Model = ExampleInfo.PlotModel;
             PlotView.Model.DefaultFont = DefaultFont;
 
-            PlotView.Controller = ExampleInfo.PlotController;
-
-            if (ExampleInfo.PlotController == null)
+            if (ExampleInfo.PlotController != null)
             {
-                var controller = new PlotController();
-                PlotView.Controller = controller;
+                PlotView.Controller = ExampleInfo.PlotController;
             }
         }
 

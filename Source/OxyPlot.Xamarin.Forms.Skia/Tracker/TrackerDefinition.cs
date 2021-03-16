@@ -1,6 +1,6 @@
 ﻿using Xamarin.Forms;
 
-namespace OxyPlot.XF.Skia.Tracker
+namespace OxyPlot.XF.Skia
 {
     /// <summary>
     /// Represents a tracker definition.

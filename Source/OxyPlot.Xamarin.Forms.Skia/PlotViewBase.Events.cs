@@ -65,7 +65,7 @@ namespace OxyPlot.XF.Skia
         private bool OnTouchMoveEvent(TouchActionEventArgs e)
         {
             var currentTouchPoints = GetTouchPoints(e, Scale);
-            var args = new OxyTouchEventArgs(currentTouchPoints, this.previousTouchPoints);
+            var args = new XamarinOxyTouchEventArgs(currentTouchPoints, this.previousTouchPoints);
             var handled = this.ActualController.HandleTouchDelta(this, args);
             this.previousTouchPoints = currentTouchPoints;
             return handled;
@@ -89,16 +89,17 @@ namespace OxyPlot.XF.Skia
         /// <returns>The converted event arguments.</returns>
         public static OxyTouchEventArgs ToTouchEventArgs(TouchActionEventArgs e, double scale)
         {
-            return new OxyTouchEventArgs
+            return new XamarinOxyTouchEventArgs
             {
                 Position = new ScreenPoint(e.Location.X / scale, e.Location.Y / scale),
                 DeltaTranslation = new ScreenVector(0, 0),
-                DeltaScale = new ScreenVector(1, 1)
+                DeltaScale = new ScreenVector(1, 1),
+                PointerCount = e.Locations.Length
             };
         }
 
         /// <summary>
-        /// Gets the touch points from the specified <see cref="MotionEvent" /> argument.
+        /// Gets the touch points from the specified <see cref="TouchActionEventArgs" /> argument.
         /// </summary>
         /// <param name="e">The event arguments.</param>
         /// <param name = "scale">The resolution scale factor.</param>
@@ -113,53 +114,5 @@ namespace OxyPlot.XF.Skia
 
             return result;
         }
-
-        ///// <summary>
-        ///// Called when the <see cref="E:System.Windows.UIElement.ManipulationStarted" /> event occurs.
-        ///// </summary>
-        ///// <param name="e">The data for the event.</param>
-        //protected override void OnManipulationStarted(ManipulationStartedEventArgs e)
-        //{
-        //    base.OnManipulationStarted(e);
-        //    if (e.Handled)
-        //    {
-        //        return;
-        //    }
-
-        //    e.Handled = this.ActualController.HandleTouchStarted(this, e.ToTouchEventArgs(this));
-        //}
-
-        ///// <summary>
-        ///// Called when the <see cref="E:System.Windows.UIElement.ManipulationDelta" /> event occurs.
-        ///// </summary>
-        ///// <param name="e">The data for the event.</param>
-        //protected override void OnManipulationDelta(ManipulationDeltaEventArgs e)
-        //{
-        //    //PanGestureRecognizer
-        //    //PinchGestureRecognizer
-
-        //    base.OnManipulationDelta(e);
-        //    if (e.Handled)
-        //    {
-        //        return;
-        //    }
-
-        //    e.Handled = this.ActualController.HandleTouchDelta(this, e.ToTouchEventArgs(this));
-        //}
-
-        ///// <summary>
-        ///// Called when the <see cref="E:System.Windows.UIElement.ManipulationCompleted" /> event occurs.
-        ///// </summary>
-        ///// <param name="e">The data for the event.</param>
-        //protected override void OnManipulationCompleted(ManipulationCompletedEventArgs e)
-        //{
-        //    base.OnManipulationCompleted(e);
-        //    if (e.Handled)
-        //    {
-        //        return;
-        //    }
-
-        //    e.Handled = this.ActualController.HandleTouchCompleted(this, e.ToTouchEventArgs(this));
-        //}
     }
 }

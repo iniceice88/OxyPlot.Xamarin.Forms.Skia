@@ -6,6 +6,11 @@ For more information go to [Official implementation](https://github.com/oxyplot/
 
 ![License](https://img.shields.io/badge/license-MIT-red.svg)
 
+#### Features
+- Pan(single-finger,two-finger or by drag axis) and Zoom
+- Show tracker
+- Unicode support
+
 #### Examples
 
 You can find examples in the `/Source/Examples` folder in the code repository.

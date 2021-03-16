@@ -1,9 +1,8 @@
-﻿using System;
+﻿using OxyPlot.XF.Skia.Core;
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading;
-using OxyPlot.XF.Skia.Core;
-using OxyPlot.XF.Skia.Tracker;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 

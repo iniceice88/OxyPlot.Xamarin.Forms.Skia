@@ -11,6 +11,9 @@ namespace SimpleDemo
             InitializeComponent();
 
             MainPage = new NavigationPage(new ExampleBrowser());
+            //MainPage = new NavigationPage(new IssueDemos.IssueDemoPage());
+            //MainPage = new CustomTrackerPage();
+            //MainPage = new PanModePage();
         }
 
         protected override void OnStart()

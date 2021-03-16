@@ -1,5 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentView x:Class="OxyPlot.XF.Skia.Tracker.TrackerControl" xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+<ContentView x:Class="OxyPlot.XF.Skia.TrackerControl" 
+             xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
     <ContentView.Resources>
         <ControlTemplate x:Key="TrackerControlTemplate">
             <AbsoluteLayout HorizontalOptions="Fill" VerticalOptions="Fill">
@@ -18,7 +20,7 @@
                     StrokeDashArray="{TemplateBinding LineDashArray}"
                     WidthRequest="9999" />
                 <Grid x:Name="PART_ContentContainer">
-                    <Path x:Name="PART_Path" Fill="{TemplateBinding TrackerBackground}" Stroke="{TemplateBinding BorderBrush}" StrokeThickness="{TemplateBinding BorderThickness}" />
+                    <Path x:Name="PART_Path" Fill="{TemplateBinding Background}" Stroke="{TemplateBinding BorderBrush}" StrokeThickness="{TemplateBinding BorderThickness}" />
                     <ContentPresenter x:Name="PART_Content" HorizontalOptions="Center" VerticalOptions="Center" />
                 </Grid>
             </AbsoluteLayout>

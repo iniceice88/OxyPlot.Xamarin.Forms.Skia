@@ -1,12 +1,12 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:SimpleDemo"
-             xmlns:skia="clr-namespace:OxyPlot.XF.Skia;assembly=OxyPlot.XF.Skia"
-             x:Class="SimpleDemo.PlotViewPage">
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="SimpleDemo.PlotViewPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:oxy="clr-namespace:OxyPlot.XF.Skia;assembly=OxyPlot.XF.Skia">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Transpose" Order="Secondary" x:Name="TbTranspose" Clicked="TbTranspose_OnClicked"/>
+        <ToolbarItem x:Name="TbTranspose" Clicked="TbTranspose_OnClicked" Order="Secondary" Text="Transpose" />
     </ContentPage.ToolbarItems>
 
-    <skia:PlotView x:Name="PlotView">
-
-    </skia:PlotView>
+    <oxy:PlotView x:Name="PlotView" />
 </ContentPage>

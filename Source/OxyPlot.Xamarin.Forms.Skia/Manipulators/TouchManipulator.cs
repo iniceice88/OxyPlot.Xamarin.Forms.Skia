@@ -13,7 +13,20 @@
             : base(plotView)
         {
             SetHandledForPanOrZoom = true;
+            IsOnlyAcceptAxisPan = false;
+            IsPanByTowFinger = false;
         }
+
+        /// <summary>
+        /// Only can pan by drag Axises if set to <c>True</c>
+        /// </summary>
+        public bool IsOnlyAcceptAxisPan { get; set; }
+
+        /// <summary>
+        /// Pan by tow-finger?
+        /// https://github.com/oxyplot/oxyplot/issues/633
+        /// </summary>
+        public bool IsPanByTowFinger { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether <c>e.Handled</c> should be set to <c>true</c>
@@ -61,27 +74,23 @@
             var newPosition = e.Position;
             var previousPosition = newPosition - e.DeltaTranslation;
 
-            if (this.XAxis != null)
+            var ignorePan = IsOnlyAcceptAxisPan && this.XAxis != null && this.YAxis != null;
+            if (!ignorePan && IsPanByTowFinger && e is XamarinOxyTouchEventArgs e2)
             {
-                this.XAxis.Pan(previousPosition, newPosition);
+                ignorePan = e2.PointerCount == 1;
             }
 
-            if (this.YAxis != null)
+            if (!ignorePan)
             {
-                this.YAxis.Pan(previousPosition, newPosition);
+                XAxis?.Pan(previousPosition, newPosition);
+
+                YAxis?.Pan(previousPosition, newPosition);
             }
 
             var current = this.InverseTransform(newPosition.X, newPosition.Y);
 
-            if (this.XAxis != null)
-            {
-                this.XAxis.ZoomAt(e.DeltaScale.X, current.X);
-            }
-
-            if (this.YAxis != null)
-            {
-                this.YAxis.ZoomAt(e.DeltaScale.Y, current.Y);
-            }
+            XAxis?.ZoomAt(e.DeltaScale.X, current.X);
+            YAxis?.ZoomAt(e.DeltaScale.Y, current.Y);
 
             this.PlotView.InvalidatePlot(false);
             e.Handled = true;

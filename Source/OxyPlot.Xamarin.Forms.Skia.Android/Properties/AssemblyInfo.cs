@@ -4,8 +4,8 @@ using System.Runtime.CompilerServices;
 // Information about this assembly is defined by the following attributes. 
 // Change them to the values specific to your project.
 
-[assembly: AssemblyTitle("OxyPlot.Xamarin.Forms.Platform.Android")]
-[assembly: AssemblyDescription("OxyPlot for Xamarin.Forms.Platform.Android")]
+[assembly: AssemblyTitle("OxyPlot.Xamarin.Forms.Skia.Android")]
+[assembly: AssemblyDescription("OxyPlot for OxyPlot.Xamarin.Forms.Skia.Android")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("OxyPlot")]
 [assembly: AssemblyProduct("OxyPlot")]

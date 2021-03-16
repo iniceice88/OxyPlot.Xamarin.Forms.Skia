@@ -4,7 +4,7 @@
     /// Combine multiple commands to one.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    internal class CompositeDelegateViewCommand<T> : IViewCommand<T>
+    public class CompositeDelegateViewCommand<T> : IViewCommand<T>
         where T : OxyInputEventArgs
     {
         private readonly IViewCommand<T>[] commands;

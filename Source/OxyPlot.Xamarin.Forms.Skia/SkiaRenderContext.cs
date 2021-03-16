@@ -5,6 +5,7 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 using System.IO;
+using Xamarin.Forms.Xaml;
 
 namespace OxyPlot.XF.Skia
 {
@@ -853,11 +854,11 @@ namespace OxyPlot.XF.Skia
             var fontDescriptor = new FontDescriptor(fontFamily, fontWeight);
             if (!this.typefaceCache.TryGetValue(fontDescriptor, out var typeface))
             {
-
                 typeface = SKTypeface.FromFamilyName(fontFamily, new SKFontStyle((int)fontWeight, (int)SKFontStyleWidth.Normal, SKFontStyleSlant.Upright));
 
                 // TODO fonts for unicode
                 typeface ??= GetTypefaceFromCustomDirectory(fontFamily);
+                typeface ??= SKTypeface.Default;
 
                 this.typefaceCache.Add(fontDescriptor, typeface);
             }
@@ -886,8 +887,11 @@ namespace OxyPlot.XF.Skia
 
         private SKTypeface GetTypefaceFromCustomDirectory(string fontFamily)
         {
-            if (!Directory.Exists(XFPlotSetting.CustomFontDirectory))
+            if (string.IsNullOrEmpty(XFPlotSetting.CustomFontDirectory) ||
+                !Directory.Exists(XFPlotSetting.CustomFontDirectory))
+            {
                 return null;
+            }
 
             var fontExts = new string[] { "*.ttf", "*.ttc", "*.otf" };
             foreach (var ext in fontExts)
@@ -896,7 +900,9 @@ namespace OxyPlot.XF.Skia
                 {
                     var tf = SKTypeface.FromFile(file);
                     if (tf.FamilyName.Equals(fontFamily, StringComparison.OrdinalIgnoreCase))
+                    {
                         return tf;
+                    }
                 }
             }
 

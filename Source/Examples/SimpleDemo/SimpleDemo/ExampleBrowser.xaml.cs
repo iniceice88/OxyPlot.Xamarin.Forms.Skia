@@ -23,19 +23,24 @@ namespace SimpleDemo
                 return;
 
             var examples = ExampleLibrary.Examples.GetList();
-            
+
             _viewModel = new ExampleBrowserViewModel(examples.ToArray());
             this.BindingContext = _viewModel;
         }
 
         private async void ListView_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
+            if (e.SelectedItemIndex < 0)
+                return;
+
             var exampleInfo = e.SelectedItem as ExampleInfo;
             var page = new PlotViewPage
             {
                 ExampleInfo = exampleInfo
             };
             await Navigation.PushAsync(page);
+
+            LvExamples.SelectedItem = null;
         }
     }
 

@@ -9,6 +9,11 @@ namespace OxyPlot.XF.Skia
     /// </summary>
     public partial class PlotView : PlotViewBase
     {
+        public PlotView()
+        {
+            this.Controller = new PlotController();
+        }
+
         /// <summary>
         /// Gets the SkiaRenderContext.
         /// </summary>
