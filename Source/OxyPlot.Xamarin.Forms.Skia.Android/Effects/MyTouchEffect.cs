@@ -14,9 +14,6 @@ namespace OxyPlot.XF.Skia.Droid.Effects
 {
     public class MyTouchEffect : PlatformEffect
     {
-        private static readonly Dictionary<View, MyTouchEffect> ViewDictionary =
-            new Dictionary<View, MyTouchEffect>();
-
         private Xamarin.Forms.Element _formsElement;
         private Func<double, double> _fromPixels;
         private Skia.Effects.MyTouchEffect libMyTouchEffect;
@@ -33,7 +30,7 @@ namespace OxyPlot.XF.Skia.Droid.Effects
 
             if (touchEffect != null && _view != null)
             {
-                ViewDictionary.Add(_view, this);
+                ViewHolder.Add(_view, this);
 
                 _formsElement = Element;
 
@@ -49,9 +46,9 @@ namespace OxyPlot.XF.Skia.Droid.Effects
 
         protected override void OnDetached()
         {
-            if (ViewDictionary.ContainsKey(_view))
+            if (ViewHolder.ContainsKey(_view))
             {
-                ViewDictionary.Remove(_view);
+                ViewHolder.Remove(_view);
                 _view.Touch -= OnTouch;
             }
         }
@@ -64,7 +61,7 @@ namespace OxyPlot.XF.Skia.Droid.Effects
 
             int[] twoIntArray = new int[2];
             senderView.GetLocationOnScreen(twoIntArray);
-            
+
             var list = new List<Point>();
             for (var pointerIndex = 0; pointerIndex < motionEvent.PointerCount; pointerIndex++)
             {
@@ -114,6 +111,58 @@ namespace OxyPlot.XF.Skia.Droid.Effects
             // Call the method
             onTouchAction(myTouchEffect._formsElement,
                 new TouchActionEventArgs(id, actionType, locations.ToArray(), isInContact));
+        }
+
+        static class ViewHolder
+        {
+            private static Dictionary<int, WeakViewTouchEffectPair> _viewDic =
+                new Dictionary<int, WeakViewTouchEffectPair>();
+
+            public static bool ContainsKey(View view)
+            {
+                Shake();
+                return _viewDic.ContainsKey(view.GetHashCode());
+            }
+
+            public static void Add(View view, MyTouchEffect eff)
+            {
+                Shake();
+                _viewDic[view.GetHashCode()] = new WeakViewTouchEffectPair(view, eff);
+            }
+
+            public static void Remove(View view)
+            {
+                Shake();
+
+                _viewDic.Remove(view.GetHashCode());
+            }
+
+            private static void Shake()
+            {
+                foreach (var key in _viewDic.Keys.ToArray())
+                {
+                    if (!_viewDic[key].IsAlive)
+                        _viewDic.Remove(key);
+                }
+            }
+        }
+
+        class WeakViewTouchEffectPair
+        {
+            private readonly WeakReference _weakView;
+            public View View => _weakView.Target as View;
+
+            public bool IsAlive => _weakTouchEffect.IsAlive && _weakView.IsAlive;
+
+            private readonly WeakReference _weakTouchEffect;
+            public MyTouchEffect TouchEffect => _weakTouchEffect.Target as MyTouchEffect;
+
+            public WeakViewTouchEffectPair(View view, MyTouchEffect eff)
+            {
+                _weakView = new WeakReference(view);
+                _weakTouchEffect = new WeakReference(eff);
+            }
+
         }
     }
 }
