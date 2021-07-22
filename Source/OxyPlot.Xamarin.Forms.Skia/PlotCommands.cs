@@ -27,7 +27,7 @@
             PanZoomByTouch = new DelegatePlotCommand<OxyTouchEventArgs>((view, controller, args) => controller.AddTouchManipulator(view, new Manipulators.TouchManipulator(view), args));
             PanZoomByTouchAxisOnly = new DelegatePlotCommand<OxyTouchEventArgs>((view, controller, args) => controller.AddTouchManipulator(view, new Manipulators.TouchManipulator(view) { IsOnlyAcceptAxisPan = true }, args));
             PanZoomByTouchTwoFinger = new DelegatePlotCommand<OxyTouchEventArgs>((view, controller, args) => controller.AddTouchManipulator(view, new Manipulators.TouchManipulator(view) { IsPanByTowFinger = true }, args));
-            SnapTrackTouch = new DelegatePlotCommand<OxyTouchEventArgs>((view, controller, args) => controller.AddTouchManipulator(view, new Manipulators.TouchTrackerManipulator(view) { Snap = true, PointsOnly = true }, args));
+            SnapTrackTouch = new DelegatePlotCommand<OxyTouchEventArgs>((view, controller, args) => controller.AddTouchManipulator(view, new Manipulators.TouchTrackerManipulator(view) { Snap = true, PointsOnly = true, LockToInitialSeries = false }, args));
         }
     }
 }

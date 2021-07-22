@@ -854,12 +854,7 @@ namespace OxyPlot.XF.Skia
             var fontDescriptor = new FontDescriptor(fontFamily, fontWeight);
             if (!this.typefaceCache.TryGetValue(fontDescriptor, out var typeface))
             {
-                typeface = SKTypeface.FromFamilyName(fontFamily, new SKFontStyle((int)fontWeight, (int)SKFontStyleWidth.Normal, SKFontStyleSlant.Upright));
-
-                // TODO fonts for unicode
-                typeface ??= GetTypefaceFromCustomDirectory(fontFamily);
-                typeface ??= SKTypeface.Default;
-
+                typeface = ResolveTypeface(fontFamily, (int)fontWeight);
                 this.typefaceCache.Add(fontDescriptor, typeface);
             }
 
@@ -883,6 +878,29 @@ namespace OxyPlot.XF.Skia
             this.paint.HintingLevel = this.RendersToScreen ? SKPaintHinting.Full : SKPaintHinting.NoHinting;
             this.paint.SubpixelText = this.RendersToScreen;
             return this.paint;
+        }
+
+        protected virtual SKTypeface ResolveTypeface(string fontFamily, int fontWeight)
+        {
+            var typeface = SKTypeface.FromFamilyName(fontFamily, new SKFontStyle(fontWeight, (int)SKFontStyleWidth.Normal, SKFontStyleSlant.Upright));
+
+            if (typeface != null)
+                return typeface;
+
+            if (XFPlotSetting.SKTypefaceProvider != null)
+            {
+                typeface = XFPlotSetting.SKTypefaceProvider(fontFamily);
+
+                if (typeface != null)
+                    return typeface;
+            }
+
+            typeface = GetTypefaceFromCustomDirectory(fontFamily);
+            if (typeface != null)
+                return typeface;
+
+
+            return SKTypeface.Default;
         }
 
         private SKTypeface GetTypefaceFromCustomDirectory(string fontFamily)

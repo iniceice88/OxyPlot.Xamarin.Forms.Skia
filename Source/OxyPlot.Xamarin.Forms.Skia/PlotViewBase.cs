@@ -84,6 +84,7 @@ namespace OxyPlot.XF.Skia
                 tc.SetBinding(TrackerControl.LineExtentsProperty, "PlotModel.PlotArea");
                 var label = new Label();
                 label.Margin = 7;
+                label.LineBreakMode = LineBreakMode.WordWrap;
                 label.SetBinding(Label.TextProperty, ".");
                 tc.Content = label;
                 return tc;
@@ -130,7 +131,6 @@ namespace OxyPlot.XF.Skia
                 this.overlays.Children.Remove(this.currentTracker);
                 this.currentTracker = null;
                 this.currentTrackerTemplate = null;
-                Console.WriteLine("HideTracker");
             }
         }
 
@@ -358,6 +358,8 @@ namespace OxyPlot.XF.Skia
         {
             var dpiScale = this.UpdateDpi();
             this.ClearBackground();
+
+            this.HideTracker();
 
             if (this.ActualModel != null)
             {
