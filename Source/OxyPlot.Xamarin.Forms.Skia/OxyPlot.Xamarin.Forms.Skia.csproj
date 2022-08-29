@@ -23,11 +23,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="OxyPlot.Core" Version="2.1.0-Preview1" />
-    <PackageReference Include="SkiaSharp.HarfBuzz" Version="2.88.0-preview.61" />
-    <PackageReference Include="SkiaSharp.Views.Forms" Version="2.88.0-preview.61" />
-    <PackageReference Include="Xamarin.Essentials" Version="1.7.0" />
-    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2083" />
+    <PackageReference Include="OxyPlot.Core" Version="2.1.0" />
+    <PackageReference Include="SkiaSharp.HarfBuzz" Version="2.88.1" />
+    <PackageReference Include="SkiaSharp.Views.Forms" Version="2.88.1" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.7.3" />
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2515" />
   </ItemGroup>
 
   <ItemGroup>
